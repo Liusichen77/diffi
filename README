@@ -1,0 +1,42 @@
+= Diffi: The DIFFusion maps package from IPRJ =
+
+
+== Description ==
+
+This package contains different implementations of diffusion maps for the
+following languages
+- Scilab
+- Matlab
+- Python
+
+=== What is diffusion maps? ===
+
+This is a nonlinear dimensionality reduction technique used in machine learning,
+artificial intelligence, and computer vision. It is useful for both supervised
+and non-supervised learning. It was proposed by Steve
+Zucker, R. Coifman, S. Lafon, and others. It bears many similarities with
+Google's Pagerank algorithm the idea of random walks on graphs.
+
+== Disclaimer ==
+
+Most of this code is experimental research code that started being developed
+during 2012-2013.
+
+== Authors ==
+
+Ricardo Fabbri, Ph.D. <rfabbri@iprj.uerj.br>
+Lucia Pinto
+Mauro Amorim
+Francisco Duarte Moura Neto, Ph.D.
+
+We are researchers from the Rio de Janeiro State University,
+working at the Polytechnic Institute - IPRJ.
+
+www.iprj.uerj.br
+http://pt.wikipedia.org/wiki/IPRJ
+
+== License ==
+
+GPL v3. (see the file COPYING for a copy of the license)
+
+If you need a different license, please contact us at <rfabbri@iprj.uerj.br>

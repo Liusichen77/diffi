@@ -1,4 +1,3 @@
-
 function dista  = ludist(X)
 % Esta função calcula a distância euclidiana entre as colunas de uma matriz X dada 
 % Data: 09/set/12,   Programador: Lúcia 

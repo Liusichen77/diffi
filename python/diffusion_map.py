@@ -1,5 +1,4 @@
 #-*- coding: utf8 -*-
-"""Computes Diffusion Maps by Zucker, Coiffman, Lafon, et. al."""
 #
 # Authors: Ricardo Fabbri <rfabbri@iprj.uerj.br>
 #
@@ -10,17 +9,19 @@
 from pylab import *
 
 
-def diffusion_map(data, epsilon=1, t=2, d=2)
-"""Computes Diffusion Maps by Zucker, Coiffman, Lafon, et. al."""
-# Input: 
-#    - data matrix:  data(i,j) corresponds to data point i, feature dimension j
-#    - d: number of desired dimensions to reduce/change to. Constraint: d <= #datapoints-1
-#    - epsilon = controls neighborhood radius.
-#    - t: controls diffusion radius
-#
-# Output: 
-#    - reduced data matrix with the same number of data points, and n columns or
-#    feature dimensions
+def diffusion_map(data, epsilon=1, t=2, d=2):
+  """
+  Computes Diffusion Maps by Zucker, Coiffman, Lafon, et. al.
+   Input: 
+      - data matrix:  data(i,j) corresponds to data point i, feature dimension j
+      - epsilon = controls neighborhood radius.
+      - t: controls diffusion radius
+      - d: number of desired dimensions to reduce/change to. Constraint: d <= #datapoints-1
+
+   Output: 
+      - reduced data matrix with the same number of data points, and d columns or
+      feature dimensions
+  """
 
   dist = pairwise_row_distance(data)
   p = exp(-dist*dist / epsilon)
@@ -48,7 +49,7 @@ def diffusion_map(data, epsilon=1, t=2, d=2)
   return diff
 
 def pairwise_row_distance(data):
-# pairwise distance between mydata rows
+  """pairwise distance between data matrix rows"""
   r = data.shape[0]
   w = zeros((r,r), dtype=np.float32)
   for i in range(r):

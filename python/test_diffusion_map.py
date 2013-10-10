@@ -2,16 +2,18 @@
 # Tests 
 
 import unittest
-import diff
+from diffusion_map import diffusion_map
+from pylab import *
 
 class TestDiff(unittest.TestCase):
 
 #    def setUp(self):
 
-    def test_sanity(self):
+    def test_sanity0(self):
       data = empty(())
-      raises = False
       self.assertRaises(Exception, diffusion_map, data)
+
+#    def test_sanity1(self):
 
 #      data = zeros((1,1), dtype=np.float32)
 #      diff = diffusion_map(data)

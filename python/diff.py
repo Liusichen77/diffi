@@ -53,6 +53,24 @@ t = 2
 
 epsilon = 2*sigma*sigma  # XXX  redo this since Gaussian is not normalized
 
-d = pairwise_row_distance(data)
-w = exp(-d*d/epsilon)
+dist = pairwise_row_distance(data)
+p = exp(-dist*dist / epsilon)
+
+#copyto(w, p)  # dbg
+
+r = p.shape[0]
+for i in range(r):
+  p[i] /= sum(p[i])
+  
+
+# eigendecomposition --------
 #np.linalg.eigh(p)
+lamb, psi = eigh(p)
+
+idx = lamb.argsort()   
+lamb = lamb[idx]
+psi = psi[:,idx]
+
+# build diffusion maps
+
+df

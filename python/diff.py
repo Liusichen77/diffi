@@ -11,7 +11,7 @@
 
 # Input: 
 #    - data matrix:  data(i,j) corresponds to data point i, feature dimension j
-#    - n: number of desired dimensions to reduce/change to. Constraint: n <= data points
+#    - d: number of desired dimensions to reduce/change to. Constraint: d <= #datapoints-1
 #    - sigma = controls neighborhood radius. The epsilon of the paper equals 2*sigma**2
 #    - t: controls diffusion radius
 #
@@ -49,6 +49,7 @@ def pairwise_row_distance(data):
 #sigma = 1
 sigma = 0.5 
 t = 2
+d = 2
 
 
 epsilon = 2*sigma*sigma  # XXX  redo this since Gaussian is not normalized
@@ -64,13 +65,18 @@ for i in range(r):
   
 
 # eigendecomposition --------
-#np.linalg.eigh(p)
 lamb, psi = eigh(p)
 
 idx = lamb.argsort()   
 lamb = lamb[idx]
 psi = psi[:,idx]
 
+lamb = lamb[::-1]
+psi = psi[:,::-1]
+
 # build diffusion maps
 
-df
+lamb = lamb[1:d]
+psi = psi[:,1:d]
+
+diff = dot(psi, diag(lamb**t))

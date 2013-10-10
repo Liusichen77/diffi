@@ -36,9 +36,9 @@ class TestDiff(unittest.TestCase):
       diff = diffusion_map(data, d=0)
       self.assertEqual(diff.size, 0)
 
-    def test_single_point(self):
-      data = zeros((1,3), dtype=np.float32)
-      diff = diffusion_map(data)
+#    def test_single_point(self):
+#      data = zeros((1,3), dtype=np.float32)
+#      diff = diffusion_map(data)
 
 #      data = zeros((2,3), dtype=np.float32)
 #      diff = diffusion_map(data)

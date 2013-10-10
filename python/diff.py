@@ -7,18 +7,8 @@
 # Licence: GPLv3
 # Start Date: October 9 2013
 
-
-
-#pts = matrix(data)
-
-
 from pylab import *
 
-
-# Simple test input
-
-#data = zeros((2,2), dtype=np.float32)
-#data[0,1] = 1
 
 def diffusion_map(data, epsilon=1, t=2, d=2)
 """Computes Diffusion Maps by Zucker, Coiffman, Lafon, et. al."""

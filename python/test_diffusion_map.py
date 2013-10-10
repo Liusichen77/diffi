@@ -7,16 +7,14 @@ from pylab import *
 
 class TestDiff(unittest.TestCase):
 
-#    def setUp(self):
-
     def test_sanity0(self):
       data = empty(())
       self.assertRaises(Exception, diffusion_map, data)
 
-#    def test_sanity1(self):
-
-#      data = zeros((1,1), dtype=np.float32)
-#      diff = diffusion_map(data)
+    def test_sanity1(self):
+      data = zeros((1,1), dtype=np.float32)
+      diff = diffusion_map(data)
+      self.assertEqual(diff.size, 0)
 
 #      data = zeros((2,1), dtype=np.float32)
 #      diff = diffusion_map(data)

@@ -33,7 +33,7 @@ def diffusion_map(data, epsilon=1, t=2, d=2):
   # eigendecomposition --------
   lamb, psi = eigh(p)
 
-  idx = lamb.argsort()   
+  idx = lamb.argsort()
   lamb = lamb[idx]
   psi = psi[:,idx]
 

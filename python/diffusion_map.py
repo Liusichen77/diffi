@@ -24,11 +24,13 @@ def diffusion_map(data, epsilon=1, t=2, d=2):
       - reduced data matrix with the same number of data points, and d columns or
       feature dimensions
   """
+  r = p.shape[0]
+  if d >= r :
+    print("warning: d%d is beyond max dimensions %d = #rows - 1" % d, r-1)
 
   dist = pairwise_row_distance(data)
   p = exp(-dist*dist / epsilon)
 
-  r = p.shape[0]
   for i in range(r):
     p[i] /= sum(p[i])
     
@@ -43,8 +45,8 @@ def diffusion_map(data, epsilon=1, t=2, d=2):
   psi = psi[:,::-1]
 
   # reduce dimensions
-  lamb = lamb[1:d]
-  psi = psi[:,1:d]
+  lamb = lamb[1:(d+1)]
+  psi = psi[:,1:(d+1)]
 
   # build map -----------------
   diff = dot(psi, diag(lamb**t))

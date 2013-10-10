@@ -19,15 +19,26 @@ class TestDiff(unittest.TestCase):
     def test_dimension_augmentation(self):
       # diff can actually increase dimension!
       data = zeros((2,1), dtype=np.float32)
-      diff = diffusion_map(data,d=2)
+      diff = diffusion_map(data, d=1)
       self.assertEqual(diff.size, 2)
       # output will be zeros since P will be constant 0.5
       # which has a non-empty null space
+      # moreover, even though we specified d=2, it forces 1D since its all we
+      # have after discarding the higest eigenvalue dimension
       self.assertEqual(diff[0,0], [0])
       self.assertEqual(diff[1,0], [0])
+      # picking the right #dims does same
+      diff = diffusion_map(data, d=1)
+      self.assertEqual(diff.size, 2)
+      self.assertEqual(diff[0,0], [0])
+      self.assertEqual(diff[1,0], [0])
+      # picking #dims zero gives empty
+      diff = diffusion_map(data, d=0)
+      self.assertEqual(diff.size, 0)
 
-#      data = zeros((1,3), dtype=np.float32)
-#      diff = diffusion_map(data)
+    def test_single_point(self):
+      data = zeros((1,3), dtype=np.float32)
+      diff = diffusion_map(data)
 
 #      data = zeros((2,3), dtype=np.float32)
 #      diff = diffusion_map(data)

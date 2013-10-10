@@ -13,10 +13,12 @@ def diffusion_map(data, epsilon=1, t=2, d=2):
   """
   Computes Diffusion Maps by Zucker, Coiffman, Lafon, et. al.
    Input: 
-      - data matrix:  data(i,j) corresponds to data point i, feature dimension j
+      - data matrix:  data[i,j] corresponds to data point i, dimension j
       - epsilon = controls neighborhood radius.
       - t: controls diffusion radius
       - d: number of desired dimensions to reduce/change to. Constraint: d <= #datapoints-1
+        Note that the dimension may be increased to the number of datapoints in
+        case this is greater than the number of input dimensions
 
    Output: 
       - reduced data matrix with the same number of data points, and d columns or

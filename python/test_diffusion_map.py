@@ -16,8 +16,15 @@ class TestDiff(unittest.TestCase):
       diff = diffusion_map(data)
       self.assertEqual(diff.size, 0)
 
-#      data = zeros((2,1), dtype=np.float32)
-#      diff = diffusion_map(data)
+    def test_dimension_augmentation(self):
+      # diff can actually increase dimension!
+      data = zeros((2,1), dtype=np.float32)
+      diff = diffusion_map(data,d=2)
+      self.assertEqual(diff.size, 2)
+      # output will be zeros since P will be constant 0.5
+      # which has a non-empty null space
+      self.assertEqual(diff[0,0], [0])
+      self.assertEqual(diff[1,0], [0])
 
 #      data = zeros((1,3), dtype=np.float32)
 #      diff = diffusion_map(data)

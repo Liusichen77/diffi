@@ -9,7 +9,7 @@
 from pylab import *
 
 
-def diffusion_map(data, epsilon=1, t=2, d=2):
+def diffusion_map(data, epsilon=1, t=2, d=-1):
   """
   Computes Diffusion Maps by Zucker, Coiffman, Lafon, et. al.
    Input: 
@@ -18,14 +18,18 @@ def diffusion_map(data, epsilon=1, t=2, d=2):
       - t: controls diffusion radius
       - d: number of desired dimensions to reduce/change to. Constraint: d <= #datapoints-1
         Note that the dimension may be increased to the number of datapoints in
-        case this is greater than the number of input dimensions
+        case this is greater than the number of input dimensions.
+        d = -1 means maximum dimension.
 
    Output: 
       - reduced data matrix with the same number of data points, and d columns or
       feature dimensions
   """
   r = data.shape[0]
-  if d >= r :
+
+  if d == -1:
+    d = r-1
+  elif d >= r :
     print("warning: d=%d is beyond max dimensions %d = #rows - 1" % (d, r-1))
     d = r-1
 

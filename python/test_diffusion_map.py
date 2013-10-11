@@ -37,12 +37,29 @@ class TestDiff(unittest.TestCase):
     self.assertEqual(diff.size, 0)
 
   def test_single_3D_point(self):
-    """ one point is always reduced to zero dimensions since we always trhow
-    away the first eigenvector """
+    """ one point is always reduced to zero dimensions since we always throw
+    away the first eigenvector 
+    """
     data = zeros((1,3), dtype=np.float32)
     diff = diffusion_map(data,d=1)
     self.assertEqual(diff.size, 0)
 
+  def test_repeated_points_still_map_together(self):
+   # for i in range(10000):
+      data = 10*rand(3,5)
+      # diff = diffusion_map(data,d=2,t=1)
+      data = vstack((data, data[1]))
+      data = vstack((data, data[1]))
+      diff_repeat = diffusion_map(data,d=2,t=1)
+      # result gets altered by repeating point
+      # np.testing.assert_not_almost_equal(diff[0],diff_repeat[0],10)
+      # but at least repeated point still maps to same so. In theory only one
+      # dimension could have been better used though
+      # 
+      # Also note how the precision is very bad in absolute numbers!
+      # If you use equality up to 2 decimal places, this test sometimes fails.
+      np.testing.assert_almost_equal(diff_repeat[1],diff_repeat[3],1)
+      np.testing.assert_almost_equal(diff_repeat[1],diff_repeat[4],1)
 
 if __name__ == '__main__':
   suite = unittest.TestLoader().loadTestsFromTestCase(TestSequenceFunctions)

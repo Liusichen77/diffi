@@ -64,13 +64,34 @@ class TestDiff(unittest.TestCase):
   def test_two_points_in_x_axis(self):
     data = zeros((2,2), dtype=np.float32)
     data[0,1] = 1 
+    self.two_points_test_aux(data)
+
+    # row order invariance
+    data = zeros((2,2), dtype=np.float32)
+    data[1,1] = 1 
+    self.two_points_test_aux(data)
+
+    # rotation invariance
+    data = zeros((2,2), dtype=np.float32)
+    data[0,0] = 1 
+    self.two_points_test_aux(data)
+
+    data = zeros((2,2), dtype=np.float32)
+    data[0,0] = cos(pi/6)
+    data[0,1] = sin(pi/6) 
+    self.two_points_test_aux(data)
+
+  def two_points_test_aux(self,data):
     t=2
     epsilon=0.5
     diff = diffusion_map(data, epsilon, t)  # no real reason for this epsilon
     diff_truth = 0.4101401*ones((2,1), dtype=np.float32) # computed in scilab
     diff_truth[0] *= -1
-
     np.testing.assert_almost_equal(diff_truth, diff, 3)
+
+#  TODO: symmetric and asymetric
+#
+#  def test_three_points_test(self):
 
 if __name__ == '__main__':
   suite = unittest.TestLoader().loadTestsFromTestCase(TestSequenceFunctions)

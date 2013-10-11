@@ -8,6 +8,10 @@
 
 from pylab import *
 
+import sklearn.metrics.pairwise as pw
+
+
+import time
 
 def diffusion_map(data, epsilon=1, t=2, d=-1):
   """
@@ -34,21 +38,28 @@ def diffusion_map(data, epsilon=1, t=2, d=-1):
     print("warning: d=%d is beyond max dimensions %d = #rows - 1" % (d, r-1))
     d = r-1
 
-
-  dist = pairwise_row_distance_sq(data)
+  time0 = time.time()
+  print 'computing pairwise distances'
+  #dist = pairwise_row_distance_sq(data)
+  dist = pw.pairwise_distances(data)
+  print 'pairwise distances executed in %g seconds...' % (time.time() - time0)
+  
 
   if epsilon == -1:
     epsilon = -dist.max()
   else:
     epsilon *= -1
 
-  p = exp(dist / epsilon)
+  p = exp(dist*dist / epsilon)
 
   for i in range(r):
     p[i] /= sum(p[i])
     
   # eigendecomposition --------
+  time0 = time.time()
+  print 'computing eigendecomposition'
   lamb, psi = eigh(p)
+  print 'eigendecomposition executed in %g seconds...' % (time.time() - time0)
 
   idx = lamb.argsort()
   lamb = lamb[idx]

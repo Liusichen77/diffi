@@ -15,6 +15,7 @@ def diffusion_map(data, epsilon=1, t=2, d=-1):
    Input: 
       - data matrix:  data[i,j] corresponds to data point i, dimension j
       - epsilon = controls neighborhood radius.
+          epsilon = -1 means automatic determination by max radius
       - t: controls diffusion radius
       - d: number of desired dimensions to reduce/change to. Constraint: d <= #datapoints-1
         Note that the dimension may be increased to the number of datapoints in
@@ -33,8 +34,15 @@ def diffusion_map(data, epsilon=1, t=2, d=-1):
     print("warning: d=%d is beyond max dimensions %d = #rows - 1" % (d, r-1))
     d = r-1
 
-  dist = pairwise_row_distance(data)
-  p = exp(-dist*dist / epsilon)
+
+  dist = pairwise_row_distance_sq(data)
+
+  if epsilon == -1:
+    epsilon = -dist.max()
+  else:
+    epsilon *= -1
+
+  p = exp(dist / epsilon)
 
   for i in range(r):
     p[i] /= sum(p[i])
@@ -57,12 +65,13 @@ def diffusion_map(data, epsilon=1, t=2, d=-1):
   diff = dot(psi, diag(lamb**t))
   return diff
 
-def pairwise_row_distance(data):
+def pairwise_row_distance_sq(data):
   """pairwise distance between data matrix rows"""
   r = data.shape[0]
   w = zeros((r,r), dtype=np.float32)
   for i in range(r):
     for j in range(i+1,r):
-      w[i,j] = norm(data[i]-data[j])
+      d = data[i]-data[j]
+      w[i,j] = dot(d,d)
       w[j,i] = w[i,j]
   return w

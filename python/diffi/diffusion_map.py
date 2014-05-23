@@ -47,6 +47,7 @@ def diffusion_map(data, epsilon=1, t=2, d=-1):
 
   if epsilon == -1:
     epsilon = -dist.max()
+    print "auto_epsilon = %g" % (-epsilon)
   else:
     epsilon *= -1
 
